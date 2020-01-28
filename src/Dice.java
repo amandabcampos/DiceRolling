@@ -32,28 +32,37 @@ public class Dice {
 			int num1 = generateRandomDieRoll(numSides);
 			int num2 = generateRandomDieRoll(numSides);
 			
-			System.out.println(num1 + "\n" + num2);
+			if (num1 >0 && num2 > 0) {
 			
-			if (rolls == 1) {
-				System.out.println("Is it Craps? " + craps(num1 + num2));
+				System.out.println(num1 + "\n" + num2);
+				
+				if (rolls == 1) {
+					System.out.println("Is it Craps? " + craps(num1 + num2));
+				} else {
+					System.out.println("Is it a special combination? " + specialCombinations(num1+num2));
+				}
+				
+				System.out.println("Roll again? (y/n): ");
+				if (scnr.next().startsWith("n")) {
+					System.out.print("Bye!");
+					looping = false;
+				}	
 			} else {
-				System.out.println("Is it a special combination? " + specialCombinations(num1+num2));
-			}
-			
-			System.out.println("Roll again? (y/n): ");
-			if (scnr.next().startsWith("n")) {
-				System.out.print("Bye!");
-				looping = false;
+				System.out.println("Enter number of sides bigger than 1!");
 			}
 		}
-		scnr.close();			
+		scnr.close();
 	}
 	
 	private static int generateRandomDieRoll(int numSides) {	
 		//return (int) (Math.floor(Math.random()*numSides + 1));	
 		
-		Random random = new Random();
-		return random.nextInt(numSides) + 1;	
+		if (numSides >1) {
+			Random random = new Random();
+			return random.nextInt(numSides) + 1;	
+		}
+		return -1;
+		
 	}
 	
 	private static String specialCombinations(int sum) {
